@@ -10,33 +10,51 @@ pipeline {
     stages {
 
     stage('SCM Checkout'){
-        git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
+        steps {
+            git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
+        }
     }
 
     stage(" Maven Clean Package"){
-      def mavenHome =  tool name: "Maven-3.6.1", type: "maven"
-      def mavenCMD = "${mavenHome}/bin/mvn"
-      sh "${mavenCMD} clean package"
-
+        steps {
+            script {
+                 def mavenHome =  tool name: "Maven-3.6.1", type: "maven"
+                 def mavenCMD = "${mavenHome}/bin/mvn"
+                 sh "${mavenCMD} clean package"
+            }
+        }
     }
 
 
     stage('Build Docker Image'){
-        sh 'docker build -t steven8519/spring-boot-mongo .'
+        steps {
+            script {
+                sh 'docker build -t steven8519/spring-boot-mongo .'
+            }
+        }
+
     }
 
     stage('Push Docker Image'){
-        docker.withRegistry( '', registryCredential ) {
-           dockerImage.push()
+        steps {
+            script {
+               docker.withRegistry( '', registryCredential ) {
+                  dockerImage.push()
+               }
+            }
         }
      }
 
      stage("Deploy To Kuberates Cluster"){
-       kubernetesDeploy(
-         configs: 'springBootMongo.yml',
-         kubeconfigId: 'kubernetes_server',
-         enableConfigSubstitution: true
-        )
+        steps {
+            script {
+                kubernetesDeploy(
+                  configs: 'springBootMongo.yml',
+                  kubeconfigId: 'kubernetes_server',
+                  enableConfigSubstitution: true
+                )
+            }
+        }
      }
 
 	  /**
