@@ -1,4 +1,10 @@
 node{
+    environment {
+         registry = "steven8519/spring-boot-mongo"
+         registryCredential = 'dockerhub1'
+         dockerImage = ''
+      }
+      agent any
 
     stage('SCM Checkout'){
         git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
@@ -17,10 +23,9 @@ node{
     }
 
     stage('Push Docker Image'){
-        withCredentials([string(credentialsId: 'dockerhub1', variable: 'dockerhub1')]) {
-          sh "docker login -u steven8519 -p ${dockerhub1}"
+        docker.withRegistry( '', registryCredential ) {
+           dockerImage.push()
         }
-        sh 'docker push steven8519/spring-boot-mongo'
      }
 
      stage("Deploy To Kuberates Cluster"){
