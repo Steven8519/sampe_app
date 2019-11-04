@@ -7,6 +7,8 @@ pipeline {
 
     agent any
 
+    stages {
+
     stage('SCM Checkout'){
         git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
     }
@@ -41,7 +43,7 @@ pipeline {
       stage("Deploy To Kuberates Cluster"){
         sh 'kubectl apply -f pringBootMongo.yml'
       } **/
-
+    }
 }
 
 
