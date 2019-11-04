@@ -13,6 +13,8 @@ import io.kubernetes.client.models.V1Pod;
 import io.kubernetes.client.models.V1PodList;
 import io.kubernetes.client.util.Config;
 
+import java.io.IOException;
+
 /**
  * Main Application controller.
  *
