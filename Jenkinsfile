@@ -1,10 +1,11 @@
-node{
+pipeline {
     environment {
          registry = "steven8519/spring-boot-mongo"
          registryCredential = 'dockerhub1'
          dockerImage = ''
       }
-      agent any
+
+    agent any
 
     stage('SCM Checkout'){
         git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
