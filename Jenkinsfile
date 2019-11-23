@@ -11,7 +11,7 @@ pipeline {
 
     stage('SCM Checkout'){
         steps {
-            git credentialsId: 'dockerhub', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
+            git credentialsId: 'dockerhub1', url:  'https://github.com/Steven8519/sampe_app.git',branch: 'master'
         }
     }
 
