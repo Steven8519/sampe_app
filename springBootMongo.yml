@@ -1,5 +1,5 @@
-kind: ReplicationController
 apiVersion: v1
+kind: ReplicationController
 metadata:
   labels:
     name: springboot
@@ -16,12 +16,11 @@ spec:
         name: springboot
         ports:
         - name: springboot
-          containerPort: 8080
+          containerPort: 8080      
 ---
 # Node Port Service
-
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   labels:
     name: springboot
@@ -35,9 +34,8 @@ spec:
     name: springboot
 ---
 # Mongo host path rc
-
-kind: ReplicationController
 apiVersion: v1
+kind: ReplicationController
 metadata:
   labels:
     name: mongo
@@ -65,8 +63,8 @@ spec:
          path: /tmp/dbbackup
 ---
 # Mongo Node Port RC
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   labels:
     name: mongo
