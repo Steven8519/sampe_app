@@ -1,7 +1,7 @@
 node{
 
     stage('SCM Checkout'){
-        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/Steven8519/sampe_app', branch: 'master'
+        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/Steven8519/sampe_app.git', branch: 'master'
     }
 
     stage(" Maven Clean Package"){
